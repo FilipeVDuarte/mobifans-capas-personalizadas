@@ -5,12 +5,14 @@ import StepNavigation from "./StepNavigation";
 import ProductSelector from "./steps/ProductSelector";
 import PhotoUploader from "./steps/PhotoUploader";
 import DesignEditor from "./steps/DesignEditor";
+import Checkout from "./steps/Checkout";
 import PreviewPane from "./PreviewPane";
 import ControlPanel from "./ControlPanel";
 import Header from "./Header";
+import StatusBar from "./StatusBar";
 
 const CaseCustomizerContent: React.FC = () => {
-  const { currentStep } = useCaseCustomizer();
+  const { currentStep, isCheckoutStep } = useCaseCustomizer();
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-background">
@@ -28,8 +30,11 @@ const CaseCustomizerContent: React.FC = () => {
           {currentStep === 0 && <ProductSelector />}
           {currentStep === 1 && <PhotoUploader />}
           {currentStep === 2 && <DesignEditor />}
+          {currentStep === 3 && <Checkout />}
         </ControlPanel>
       </div>
+      
+      <StatusBar />
     </div>
   );
 };

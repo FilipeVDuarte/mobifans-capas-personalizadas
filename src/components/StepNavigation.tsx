@@ -2,7 +2,7 @@
 import React from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Smartphone, Image, PenTool } from "lucide-react";
+import { CheckCircle2, Smartphone, Image, PenTool, ShoppingCart } from "lucide-react";
 
 const steps = [
   { 
@@ -19,6 +19,11 @@ const steps = [
     name: "Design", 
     description: "Customize your case",
     icon: PenTool
+  },
+  { 
+    name: "Checkout", 
+    description: "Complete your order",
+    icon: ShoppingCart
   }
 ];
 
@@ -26,14 +31,14 @@ const StepNavigation: React.FC = () => {
   const { currentStep, setCurrentStep } = useCaseCustomizer();
 
   return (
-    <div className="py-4 px-6 border-b">
-      <ol className="flex items-center w-full">
+    <div className="py-4 px-6 border-b overflow-x-auto">
+      <ol className="flex items-center w-full min-w-max">
         {steps.map((step, index) => (
           <li 
             key={step.name} 
             className={cn(
-              "flex items-center w-full",
-              index !== steps.length - 1 && "after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:mx-6"
+              "flex items-center",
+              index !== steps.length - 1 && "after:content-[''] after:w-12 after:h-1 after:border-b after:border-gray-200 after:mx-3 sm:after:mx-6"
             )}
           >
             <div className="flex flex-col items-center">
@@ -62,7 +67,7 @@ const StepNavigation: React.FC = () => {
               </button>
               
               <span className={cn(
-                "mt-2 text-sm font-medium",
+                "mt-2 text-sm font-medium whitespace-nowrap",
                 currentStep === index 
                   ? "text-primary" 
                   : index < currentStep 
@@ -72,7 +77,7 @@ const StepNavigation: React.FC = () => {
                 {step.name}
               </span>
               
-              <span className="text-xs text-gray-500 hidden sm:block">
+              <span className="text-xs text-gray-500 hidden sm:block whitespace-nowrap">
                 {step.description}
               </span>
             </div>

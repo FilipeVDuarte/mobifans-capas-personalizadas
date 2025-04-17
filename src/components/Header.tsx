@@ -1,7 +1,13 @@
 
 import React from "react";
+import { useCaseCustomizer } from "../context/CaseCustomizerContext";
+import { ShoppingCart } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Header: React.FC = () => {
+  const { selectedModel, currentStep } = useCaseCustomizer();
+  const basePrice = 24.99;
+  
   return (
     <div className="bg-white border-b border-gray-200 py-4">
       <div className="container mx-auto flex items-center justify-between px-4">
@@ -10,8 +16,25 @@ const Header: React.FC = () => {
             CaseCustomizer
           </div>
         </div>
-        <div className="text-sm text-gray-500">
+        
+        <div className="text-sm text-gray-500 hidden sm:block">
           Create your unique phone case
+        </div>
+        
+        <div className="flex items-center">
+          {selectedModel && (
+            <div className="mr-4 text-sm">
+              <span className="font-medium text-primary">${basePrice}</span>
+              <span className="text-gray-500 ml-1">per case</span>
+            </div>
+          )}
+          
+          {currentStep === 2 && (
+            <Button size="sm" variant="outline" className="flex items-center gap-2">
+              <ShoppingCart className="h-4 w-4" />
+              <span className="hidden sm:inline">Checkout</span>
+            </Button>
+          )}
         </div>
       </div>
     </div>

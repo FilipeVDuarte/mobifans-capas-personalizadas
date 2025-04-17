@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useCaseCustomizer } from "../../context/CaseCustomizerContext";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { ChevronLeft, RotateCcw, ZoomIn, Move } from "lucide-react";
+import { ChevronLeft, RotateCcw, ZoomIn, Move, ShoppingCart } from "lucide-react";
 
 const DesignEditor: React.FC = () => {
   const { 
@@ -22,9 +22,8 @@ const DesignEditor: React.FC = () => {
     setCurrentStep(1);
   };
   
-  const handleFinish = () => {
-    // In a real app, this would prepare the case for checkout
-    alert("Your custom case design is complete! In a real app, this would proceed to checkout.");
+  const handleProceedToCheckout = () => {
+    setCurrentStep(3);
   };
 
   const handlePositionChange = (change: { x: number, y: number }) => {
@@ -189,9 +188,11 @@ const DesignEditor: React.FC = () => {
           Back
         </Button>
         <Button 
-          onClick={handleFinish}
+          onClick={handleProceedToCheckout}
+          className="flex items-center"
         >
-          Finish Design
+          <ShoppingCart className="mr-1 h-4 w-4" />
+          Checkout
         </Button>
       </div>
     </div>

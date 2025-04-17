@@ -27,6 +27,7 @@ interface CaseCustomizerState {
   setImagePosition: (position: { x: number; y: number }) => void;
   setImageScale: (scale: number) => void;
   setImageRotation: (rotation: number) => void;
+  isCheckoutStep: boolean;
 }
 
 // Create the context with default values
@@ -40,6 +41,9 @@ export const CaseCustomizerProvider: React.FC<{ children: ReactNode }> = ({ chil
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [imageScale, setImageScale] = useState(1);
   const [imageRotation, setImageRotation] = useState(0);
+  
+  // Determine if we're in the checkout step (step 3)
+  const isCheckoutStep = currentStep === 3;
 
   const value = {
     currentStep,
@@ -53,7 +57,8 @@ export const CaseCustomizerProvider: React.FC<{ children: ReactNode }> = ({ chil
     setUploadedImage,
     setImagePosition,
     setImageScale,
-    setImageRotation
+    setImageRotation,
+    isCheckoutStep
   };
 
   return (
