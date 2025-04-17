@@ -6,23 +6,23 @@ import { CheckCircle2, Smartphone, Image, PenTool, ShoppingCart } from "lucide-r
 
 const steps = [
   { 
-    name: "Products", 
-    description: "Select your phone model",
+    name: "Produtos", 
+    description: "Selecione seu modelo",
     icon: Smartphone
   },
   { 
-    name: "Photos", 
-    description: "Upload your image",
+    name: "Fotos", 
+    description: "Faça upload da imagem",
     icon: Image
   },
   { 
     name: "Design", 
-    description: "Customize your case",
+    description: "Personalize sua capa",
     icon: PenTool
   },
   { 
     name: "Checkout", 
-    description: "Complete your order",
+    description: "Finalize seu pedido",
     icon: ShoppingCart
   }
 ];

@@ -1,4 +1,3 @@
-
 import React, { useRef } from "react";
 import { useCaseCustomizer } from "../../context/CaseCustomizerContext";
 import { Button } from "@/components/ui/button";
@@ -40,9 +39,8 @@ const PhotoUploader: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full animate-fade-in">
-      <h2 className="text-lg font-semibold mb-4">Upload Your Photo</h2>
+      <h2 className="text-lg font-semibold mb-4">Faça Upload da Sua Foto</h2>
       
-      {/* Upload area */}
       <div className="flex-1">
         {!uploadedImage ? (
           <div 
@@ -51,10 +49,10 @@ const PhotoUploader: React.FC = () => {
           >
             <Upload className="h-10 w-10 text-gray-400 mb-2" />
             <p className="text-sm text-gray-500 text-center mb-2">
-              Click to upload an image or drag and drop
+              Clique para fazer upload ou arraste uma imagem
             </p>
             <p className="text-xs text-gray-400">
-              PNG, JPG or WEBP (max 5MB)
+              PNG, JPG ou WEBP (máx 5MB)
             </p>
             <input
               type="file"
@@ -80,7 +78,7 @@ const PhotoUploader: React.FC = () => {
               onClick={handleUploadClick}
             >
               <Image className="mr-2 h-4 w-4" />
-              Change Image
+              Trocar Imagem
             </Button>
             <input
               type="file"
@@ -93,20 +91,19 @@ const PhotoUploader: React.FC = () => {
         )}
       </div>
       
-      {/* Navigation buttons */}
       <div className="grid grid-cols-2 gap-3 mt-4">
         <Button 
           variant="outline"
           onClick={handleBack}
         >
           <ChevronLeft className="mr-1 h-4 w-4" />
-          Back
+          Voltar
         </Button>
         <Button 
           onClick={handleContinue}
           disabled={!uploadedImage}
         >
-          Continue
+          Continuar
           <ChevronRight className="ml-1 h-4 w-4" />
         </Button>
       </div>

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useCaseCustomizer } from "../../context/CaseCustomizerContext";
 import { phoneBrands, phoneModelsByBrand } from "../../data/phoneModels";
@@ -29,11 +28,10 @@ const ProductSelector: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full animate-fade-in">
-      <h2 className="text-lg font-semibold mb-4">Select Your Phone</h2>
+      <h2 className="text-lg font-semibold mb-4">Selecione Seu Celular</h2>
 
-      {/* Brand selection with icons */}
       <div className="mb-6">
-        <h3 className="text-sm font-medium mb-2 text-gray-700">Brand</h3>
+        <h3 className="text-sm font-medium mb-2 text-gray-700">Marca</h3>
         <div className="grid grid-cols-2 gap-2">
           {phoneBrands.map((brand) => {
             const BrandIcon = brandIcons[brand] || Smartphone;
@@ -56,10 +54,9 @@ const ProductSelector: React.FC = () => {
         </div>
       </div>
 
-      {/* Model selection */}
       {selectedBrand && (
         <div className="mb-6 animate-fade-in">
-          <h3 className="text-sm font-medium mb-2 text-gray-700">Model</h3>
+          <h3 className="text-sm font-medium mb-2 text-gray-700">Modelo</h3>
           <div className="space-y-2 max-h-[240px] overflow-y-auto pr-2">
             {phoneModelsByBrand[selectedBrand].map((phone) => (
               <button
@@ -81,14 +78,13 @@ const ProductSelector: React.FC = () => {
         </div>
       )}
 
-      {/* Continue button */}
       <div className="mt-auto pt-4">
         <Button 
           onClick={handleContinue} 
           disabled={!selectedModel}
           className="w-full"
         >
-          Continue to Photos
+          Continuar para Fotos
           <ChevronRight className="ml-1 h-4 w-4" />
         </Button>
       </div>

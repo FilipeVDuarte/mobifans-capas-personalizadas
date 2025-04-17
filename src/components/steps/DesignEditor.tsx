@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useCaseCustomizer } from "../../context/CaseCustomizerContext";
 import { Button } from "@/components/ui/button";
@@ -41,9 +40,8 @@ const DesignEditor: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full animate-fade-in">
-      <h2 className="text-lg font-semibold mb-4">Design Your Case</h2>
+      <h2 className="text-lg font-semibold mb-4">Design da Sua Capa</h2>
       
-      {/* Editing tabs */}
       <div className="flex border-b mb-4">
         <button
           onClick={() => setActiveTab("position")}
@@ -53,7 +51,7 @@ const DesignEditor: React.FC = () => {
               : "text-gray-500 hover:text-gray-900"
           }`}
         >
-          Position
+          Posição
         </button>
         <button
           onClick={() => setActiveTab("resize")}
@@ -63,7 +61,7 @@ const DesignEditor: React.FC = () => {
               : "text-gray-500 hover:text-gray-900"
           }`}
         >
-          Resize
+          Tamanho
         </button>
         <button
           onClick={() => setActiveTab("rotate")}
@@ -73,11 +71,10 @@ const DesignEditor: React.FC = () => {
               : "text-gray-500 hover:text-gray-900"
           }`}
         >
-          Rotate
+          Rotação
         </button>
       </div>
       
-      {/* Controls based on active tab */}
       <div className="flex-1 mb-4">
         {activeTab === "position" && (
           <div className="space-y-4">
@@ -87,7 +84,7 @@ const DesignEditor: React.FC = () => {
                 size="sm"
                 onClick={() => handlePositionChange({ x: 0, y: -10 })}
               >
-                Up
+                Cima
               </Button>
               <div></div>
               <Button 
@@ -95,14 +92,14 @@ const DesignEditor: React.FC = () => {
                 size="sm"
                 onClick={() => handlePositionChange({ x: 0, y: 10 })}
               >
-                Down
+                Baixo
               </Button>
               <Button 
                 variant="outline" 
                 size="sm"
                 onClick={() => handlePositionChange({ x: -10, y: 0 })}
               >
-                Left
+                Esquerda
               </Button>
               <div className="flex items-center justify-center">
                 <Move className="h-5 w-5 text-gray-400" />
@@ -112,11 +109,11 @@ const DesignEditor: React.FC = () => {
                 size="sm"
                 onClick={() => handlePositionChange({ x: 10, y: 0 })}
               >
-                Right
+                Direita
               </Button>
             </div>
             <p className="text-xs text-gray-500 text-center">
-              Use the buttons to position your image on the case
+              Use os botões para posicionar sua imagem na capa
             </p>
           </div>
         )}
@@ -140,7 +137,7 @@ const DesignEditor: React.FC = () => {
               </div>
             </div>
             <p className="text-xs text-gray-500 text-center">
-              Adjust the slider to resize your image
+              Ajuste o controle deslizante para redimensionar sua imagem
             </p>
           </div>
         )}
@@ -162,7 +159,7 @@ const DesignEditor: React.FC = () => {
               </span>
             </div>
             <p className="text-xs text-gray-500 text-center">
-              Adjust the slider to rotate your image
+              Ajuste o controle deslizante para rotacionar sua imagem
             </p>
           </div>
         )}
@@ -175,24 +172,23 @@ const DesignEditor: React.FC = () => {
         onClick={handleReset}
       >
         <RotateCcw className="mr-1 h-4 w-4" />
-        Reset Design
+        Redefinir Design
       </Button>
       
-      {/* Navigation buttons */}
       <div className="grid grid-cols-2 gap-3 mt-auto">
         <Button 
           variant="outline"
           onClick={handleBack}
         >
           <ChevronLeft className="mr-1 h-4 w-4" />
-          Back
+          Voltar
         </Button>
         <Button 
           onClick={handleProceedToCheckout}
           className="flex items-center"
         >
           <ShoppingCart className="mr-1 h-4 w-4" />
-          Checkout
+          Finalizar
         </Button>
       </div>
     </div>

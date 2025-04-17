@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useCaseCustomizer } from "../../context/CaseCustomizerContext";
 import { Button } from "@/components/ui/button";
@@ -26,62 +25,59 @@ const Checkout: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full animate-fade-in">
-      <h2 className="text-lg font-semibold mb-4">Review Order</h2>
+      <h2 className="text-lg font-semibold mb-4">Revisar Pedido</h2>
       
-      {/* Order summary */}
       <div className="border rounded-md p-4 mb-4">
-        <h3 className="font-medium text-gray-800 mb-2">Order Summary</h3>
+        <h3 className="font-medium text-gray-800 mb-2">Resumo do Pedido</h3>
         
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-600">Product:</span>
-            <span>Custom {selectedModel?.brand} {selectedModel?.model} Case</span>
+            <span className="text-gray-600">Produto:</span>
+            <span>Capa {selectedModel?.brand} {selectedModel?.model} Personalizada</span>
           </div>
           
           <div className="flex justify-between">
-            <span className="text-gray-600">Customizations:</span>
-            <span>Scale: {Math.round(imageScale * 100)}%, Rotation: {imageRotation}°</span>
+            <span className="text-gray-600">Personalizações:</span>
+            <span>Escala: {Math.round(imageScale * 100)}%, Rotação: {imageRotation}°</span>
           </div>
           
           <div className="flex justify-between">
-            <span className="text-gray-600">Price:</span>
-            <span>${basePrice.toFixed(2)}</span>
+            <span className="text-gray-600">Preço:</span>
+            <span>R${basePrice.toFixed(2)}</span>
           </div>
           
           <div className="flex justify-between">
-            <span className="text-gray-600">Shipping:</span>
-            <span>${shipping.toFixed(2)}</span>
+            <span className="text-gray-600">Frete:</span>
+            <span>R${shipping.toFixed(2)}</span>
           </div>
           
           <div className="border-t pt-2 mt-2 flex justify-between font-medium">
             <span>Total:</span>
-            <span>${total.toFixed(2)}</span>
+            <span>R${total.toFixed(2)}</span>
           </div>
         </div>
       </div>
       
-      {/* Shipping details placeholder */}
       <div className="border rounded-md p-4 mb-4">
-        <h3 className="font-medium text-gray-800 mb-2">Shipping Details</h3>
+        <h3 className="font-medium text-gray-800 mb-2">Detalhes de Envio</h3>
         <p className="text-sm text-gray-600">
-          In a complete application, this would contain form fields for shipping address, payment method, etc.
+          Em uma aplicação completa, aqui estariam os campos para endereço de entrega, método de pagamento, etc.
         </p>
       </div>
       
-      {/* Navigation buttons */}
       <div className="grid grid-cols-2 gap-3 mt-auto">
         <Button 
           variant="outline"
           onClick={handleBack}
         >
           <ChevronLeft className="mr-1 h-4 w-4" />
-          Back
+          Voltar
         </Button>
         <Button 
           onClick={handlePlaceOrder}
         >
           <Check className="mr-1 h-4 w-4" />
-          Place Order
+          Finalizar Pedido
         </Button>
       </div>
     </div>

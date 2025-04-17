@@ -10,13 +10,13 @@ const StatusBar: React.FC = () => {
   const getStatusText = () => {
     switch (currentStep) {
       case 0:
-        return "Select your phone model";
+        return "Selecione seu modelo de celular";
       case 1:
-        return "Upload your photo";
+        return "Faça upload da sua foto";
       case 2:
-        return "Customize your design";
+        return "Personalize seu design";
       default:
-        return "Create your unique case";
+        return "Crie sua capa única";
     }
   };
 
@@ -30,14 +30,14 @@ const StatusBar: React.FC = () => {
         {selectedModel && (
           <div className="flex items-center">
             <div className="text-sm font-medium">
-              <span className="text-gray-600">Price: </span>
-              <span className="text-primary">${basePrice.toFixed(2)}</span>
+              <span className="text-gray-600">Preço: </span>
+              <span className="text-primary">R${basePrice.toFixed(2)}</span>
             </div>
             
             {currentStep === 2 && (
               <button className="ml-4 text-sm flex items-center text-primary hover:text-primary/80 transition-colors">
                 <ShoppingCart className="h-4 w-4 mr-1" />
-                <span>Add to Cart</span>
+                <span>Adicionar ao Carrinho</span>
               </button>
             )}
           </div>
