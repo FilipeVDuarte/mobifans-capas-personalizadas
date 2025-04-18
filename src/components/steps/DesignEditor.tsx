@@ -12,7 +12,7 @@ import RotateTab from "../design-editor/RotateTab";
  */
 const DesignEditor = () => {
   // Hook de contexto que fornece estado e funções para customização da capa
-  const { imageScale, setImageScale, imageRotation, setImageRotation, setImagePosition } = useCaseCustomizer();
+  const { imageScale, setImageScale, imageRotation, setImageRotation, imagePosition, setImagePosition } = useCaseCustomizer();
   
   // Estado local para controlar qual aba está ativa
   const [activeTab, setActiveTab] = useState<"position" | "resize" | "rotate">("position");
@@ -21,10 +21,11 @@ const DesignEditor = () => {
    * Função que atualiza a posição da imagem baseada nas mudanças de x e y
    */
   const handlePositionChange = (change: { x: number; y: number }) => {
-    setImagePosition((prevPosition) => ({
-      x: prevPosition.x + change.x,
-      y: prevPosition.y + change.y,
-    }));
+    // Criando um novo objeto de posição diretamente em vez de usar uma função de atualização
+    setImagePosition({
+      x: imagePosition.x + change.x,
+      y: imagePosition.y + change.y,
+    });
   };
 
   return (
