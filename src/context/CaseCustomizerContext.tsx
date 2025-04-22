@@ -19,7 +19,7 @@ export interface TextStyle {
   font: string;
   color: string;
   size: number;
-  position: { x: number; y: number };
+  position: { x: number; y: number; rotation: number };
 }
 
 // Define the context state interface

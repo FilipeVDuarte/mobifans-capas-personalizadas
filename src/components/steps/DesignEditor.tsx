@@ -66,7 +66,10 @@ const DesignEditor = () => {
       font: selectedFont,
       color: textColor,
       size: textSize,
-      position: { ...(customText?.position || { x: 20, y: 40 }), rotation: textRotation }
+      position: { 
+        ...(customText?.position || { x: 20, y: 40 }),
+        rotation: textRotation 
+      }
     });
   };
 
@@ -338,4 +341,3 @@ const DesignEditor = () => {
 };
 
 export default DesignEditor;
-
