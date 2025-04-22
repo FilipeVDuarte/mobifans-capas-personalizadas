@@ -1,8 +1,9 @@
 import { Smartphone } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { JSX } from 'react'; // Adicione esta linha
 
-// Componente de ícone de marca como badge
-export const BrandIcon = ({ brand }: { brand: string }) => {
+// Componente de ícone de marca
+export const BrandIcon = ({ brand }: { brand: string }): JSX.Element => {
   const badgeUrls: Record<string, string> = {
     "Apple": "https://img.shields.io/badge/Apple-%23000000.svg?style=for-the-badge&logo=apple&logoColor=white",
     "Samsung": "https://img.shields.io/badge/Samsung-%231428A0.svg?style=for-the-badge&logo=samsung&logoColor=white",
@@ -27,7 +28,7 @@ export const BrandIcon = ({ brand }: { brand: string }) => {
   );
 };
 
-// Exportação legada para compatibilidade
+// Exportação legada
 export const brandIcons: Record<string, LucideIcon> = {
   "default": Smartphone
 };
