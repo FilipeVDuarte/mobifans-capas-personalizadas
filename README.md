@@ -29,11 +29,6 @@ Sistema completo para criação e personalização de capas para dispositivos m�
 - Exportação em alta resolução (PNG/JPEG)
 - Salvar projetos na nuvem
 
-### 🛒 Fluxo Comercial
-- Adição direta ao carrinho
-- Histórico de designs
-- Compartilhamento nas redes sociais
-
 ## 🛠 Tecnologias Principais
 
 ### Frontend
