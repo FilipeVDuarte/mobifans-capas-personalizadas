@@ -1,7 +1,7 @@
 # 🎨 Mobifans - Sistema de Capas Personalizadas
 
 [![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)]()
-[![Licença](https://www.abcd.usp.br/wp-content/uploads/2019/06/CC-BY.jpg)]()
+[![Licença](https://img.shields.io/badge/license-CC--BY--4.0-blue)]()
 [![Node.js](https://img.shields.io/badge/Node.js-14%2B-brightgreen)]()
 [![React](https://img.shields.io/badge/React-17%2B-blue)]()
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2575eba2-1b06-4db8-af73-a7d0db2eabaa/deploy-status)](https://app.netlify.com/sites/mobifans/deploys)
@@ -50,7 +50,6 @@ Sistema completo para criação e personalização de capas para dispositivos m�
 
 ### Infraestrutura
 - Hospedagem: Netlify (frontend)
-- API: Hospedada em [serviço de sua escolha]
 - CDN: Cloudinary
 
 ## 📊 Estrutura do Projeto
