@@ -7,23 +7,25 @@ import { ZoomIn } from "lucide-react";
  * Props do componente ResizeTab
  * @param scale - Valor atual da escala da imagem
  * @param onScaleChange - Função chamada quando a escala é alterada
+ * @param isMobile - Indica se o componente está sendo renderizado em um dispositivo móvel
  */
 interface ResizeTabProps {
   scale: number;
   onScaleChange: (value: number) => void;
+  isMobile?: boolean;
 }
 
 /**
  * Componente que permite ajustar o tamanho da imagem
  * Usa um slider para controlar a escala de 50% a 150%
  */
-const ResizeTab: React.FC<ResizeTabProps> = ({ scale, onScaleChange }) => {
+const ResizeTab: React.FC<ResizeTabProps> = ({ scale, onScaleChange, isMobile = false }) => {
   return (
-    <div className="space-y-4">
-      <div className="space-y-4">
+    <div className="space-y-3">
+      <div className="space-y-3">
         {/* Controle deslizante de escala */}
         <div className="flex items-center">
-          <ZoomIn className="h-4 w-4 text-gray-500 mr-2" />
+          <ZoomIn className={isMobile ? "h-3 w-3 text-gray-500 mr-1" : "h-4 w-4 text-gray-500 mr-2"} />
           <Slider
             value={[scale * 100]}
             min={50}
@@ -33,14 +35,14 @@ const ResizeTab: React.FC<ResizeTabProps> = ({ scale, onScaleChange }) => {
             onValueChange={(value) => onScaleChange(value[0] / 100)}
           />
           {/* Exibição do valor atual da escala */}
-          <span className="ml-2 text-sm text-gray-500 w-8 text-right">
+          <span className={isMobile ? "ml-1 text-xs text-gray-500 w-6 text-right" : "ml-2 text-sm text-gray-500 w-8 text-right"}>
             {Math.round(scale * 100)}%
           </span>
         </div>
       </div>
       
-      {/* Texto de instrução */}
-      <p className="text-xs text-gray-500 text-center">
+      {/* Texto de instrução adaptativo */}
+      <p className={isMobile ? "text-[10px] text-gray-500 text-center" : "text-xs text-gray-500 text-center"}>
         Ajuste o controle deslizante para redimensionar sua imagem
       </p>
     </div>

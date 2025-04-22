@@ -5,6 +5,7 @@ import EditorTabs from "../design-editor/EditorTabs";
 import PositionTab from "../design-editor/PositionTab";
 import ResizeTab from "../design-editor/ResizeTab";
 import RotateTab from "../design-editor/RotateTab";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 /**
  * Componente principal do editor de design da capa
@@ -16,6 +17,9 @@ const DesignEditor = () => {
   
   // Estado local para controlar qual aba está ativa
   const [activeTab, setActiveTab] = useState<"position" | "resize" | "rotate">("position");
+  
+  // Verifica se está em um dispositivo móvel
+  const isMobile = useIsMobile();
 
   /**
    * Função que atualiza a posição da imagem baseada nas mudanças de x e y
@@ -29,23 +33,23 @@ const DesignEditor = () => {
   };
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-lg font-medium">Ajuste sua imagem</h2>
+    <div className="space-y-3">
+      <h2 className={`font-medium ${isMobile ? 'text-base' : 'text-lg'}`}>Ajuste sua imagem</h2>
       
       {/* Componente de navegação entre as abas */}
-      <EditorTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      <EditorTabs activeTab={activeTab} onTabChange={setActiveTab} isMobile={isMobile} />
       
       {/* Renderização condicional das abas baseada na aba ativa */}
       {activeTab === "position" && (
-        <PositionTab onPositionChange={handlePositionChange} />
+        <PositionTab onPositionChange={handlePositionChange} isMobile={isMobile} />
       )}
       
       {activeTab === "resize" && (
-        <ResizeTab scale={imageScale} onScaleChange={setImageScale} />
+        <ResizeTab scale={imageScale} onScaleChange={setImageScale} isMobile={isMobile} />
       )}
       
       {activeTab === "rotate" && (
-        <RotateTab rotation={imageRotation} onRotationChange={setImageRotation} />
+        <RotateTab rotation={imageRotation} onRotationChange={setImageRotation} isMobile={isMobile} />
       )}
     </div>
   );
