@@ -15,7 +15,8 @@ const PreviewPane: React.FC = () => {
     isDraggingImage,
     setDraggingImage,
     setImagePosition,
-    customText
+    customText,
+    setCustomText
   } = useCaseCustomizer();
   
   const isMobile = useIsMobile();
@@ -30,27 +31,27 @@ const PreviewPane: React.FC = () => {
     const handleMouseDown = (e: MouseEvent | TouchEvent) => {
       // Only handle left mouse button or touch
       if ('button' in e && e.button !== 0) return;
-      
+
       e.preventDefault();
-      
+
       // Get start coordinates
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-      
+
       startPosRef.current = { 
         x: clientX - imagePosition.x, 
         y: clientY - imagePosition.y 
       };
-      
+
       setDraggingImage(true);
     };
 
     const handleMouseMove = (e: MouseEvent | TouchEvent) => {
       if (!isDraggingImage) return;
-      
+
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-      
+
       setImagePosition({
         x: clientX - startPosRef.current.x,
         y: clientY - startPosRef.current.y
@@ -84,6 +85,16 @@ const PreviewPane: React.FC = () => {
     };
   }, [imagePosition, isDraggingImage, setDraggingImage, setImagePosition, uploadedImage]);
 
+  // --- DRAGGABLE TEXT --- //
+  // Implementar arrasto/rotação do texto
+  const handleTextMouseDown = (e: any) => {
+    // Propagação para o custom hook do editor
+    if (!customText || !setCustomText) return;
+    // Implementado pelo hook de useDraggableText, editor cuida do resto
+    // Permite que só seja arrastável
+  };
+  // ---                  --- //
+
   return (
     <div className={`relative bg-gray-50 rounded-lg shadow-sm flex items-center justify-center w-full transition-all duration-300
       ${isMobile ? 'p-2 max-h-full' : 'p-6 max-w-md max-h-[600px]'}`}>
@@ -92,7 +103,7 @@ const PreviewPane: React.FC = () => {
           <p>{isMobile ? "Selecione um modelo" : "Selecione um modelo para visualizar sua capa personalizada"}</p>
         </div>
       ) : (
-        <div className="relative">
+        <div className="relative case-preview-downloadable">
           {/* Phone outline using placeholder component */}
           <div className="relative">
             <PhonePlaceholder 
@@ -128,18 +139,22 @@ const PreviewPane: React.FC = () => {
               )}
 
               {/* Custom Text Overlay */}
-              {customText && (
+              {!!customText?.content && (
                 <div 
-                  className="absolute"
+                  className="absolute select-none"
                   style={{
                     fontFamily: customText.font,
                     color: customText.color,
                     fontSize: `${customText.size}px`,
-                    transform: `translate(${customText.position.x}px, ${customText.position.y}px)`,
+                    transform: `translate(${customText.position?.x || 0}px, ${customText.position?.y || 0}px) rotate(${customText.position?.rotation || 0}deg)`,
                     textShadow: "0px 1px 2px rgba(0,0,0,0.2)",
                     userSelect: "none",
                     whiteSpace: "pre",
+                    touchAction: "none",
+                    cursor: "move",
                   }}
+                  onMouseDown={handleTextMouseDown}
+                  onTouchStart={handleTextMouseDown}
                 >
                   {customText.content}
                 </div>
@@ -153,3 +168,4 @@ const PreviewPane: React.FC = () => {
 };
 
 export default PreviewPane;
+
