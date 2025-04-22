@@ -1,77 +1,59 @@
-# Seja bem vindo ao Criador de Capas Personalizadas da Mobifans
+# 🎨 Mobifans - Sistema de Capas Personalizadas
 
-## Descrição do projeto
+[![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)]()
+[![Licença](https://img.shields.io/github/license/FilipeVDuarte/mobifans-capas-personalizadas)]()
+[![Node.js](https://img.shields.io/badge/Node.js-14%2B-brightgreen)]()
+[![React](https://img.shields.io/badge/React-17%2B-blue)]()
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2575eba2-1b06-4db8-af73-a7d0db2eabaa/deploy-status)](https://app.netlify.com/sites/mobifans/deploys)
 
-Este projeto visa desenvolver um web app que tenha uma experiência de uso pensada no usuário. Para que ele possa criar capas personalizadas para o seu smartphone sem complicações.
+Sistema completo para criação e personalização de capas para dispositivos móveis com visualização em tempo real.
 
-## Informações no Lovable
+![Preview da Aplicação](https://mobifans.netlify.app/preview.jpg) <!-- Adicione um screenshot real -->
 
-**URL**: [https://lovable.dev/projects/363473fc-a6c1-46e8-8316-157b1a396a3a](https://lovable.dev/projects/363473fc-a6c1-46e8-8316-157b1a396a3a)
+### 🌐 Acesso Online
+A aplicação está disponível em:  
+🔗 [https://mobifans.netlify.app](https://mobifans.netlify.app)  
 
-## Como posso editar este código?
+## ✨ Funcionalidades Principais
 
-Existem diversas maneiras de editar sua aplicação.
+- 🖌️ Editor intuitivo com ferramentas de desenho e camadas
+- 🎨 Paleta de cores personalizável e texturas pré-definidas
+- 📤 Upload de imagens com redimensionamento automático
 
-**Usar o Lovable**
 
-Simplesmente visite o [Projeto Lovable](https://lovable.dev/projects/363473fc-a6c1-46e8-8316-157b1a396a3a) e comece a interagir.
+## 🚀 Tecnologias Utilizadas
 
-As alterações feitas via Lovable serão commitadas automaticamente neste repositório.
+### Frontend
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge)
+![React Three Fiber](https://img.shields.io/badge/React_Three_Fiber-000000?style=for-the-badge)
 
-**Usar sua IDE preferida**
+### Backend
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge)
 
-Se você deseja trabalhar localmente usando sua própria IDE, você pode clonar este repositório e enviar (push) as alterações. As alterações enviadas também serão refletidas no Lovable.
+### DevOps
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
 
-O único requisito é ter Node.js & npm instalados - [instale com o nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🛠️ Configuração do Ambiente
 
-Siga estes passos:
+### Pré-requisitos
+- Node.js v14+
+- MongoDB Atlas ou local
+- Conta no [Cloudinary](https://cloudinary.com/) para upload de imagens
+- Conta no [Netlify](https://www.netlify.com/) para deploy
 
-```sh
-# Passo 1: Clone o repositório usando a URL Git do projeto.
-git clone <SUA_URL_GIT>
+```bash
+# Clone o repositório
+git clone https://github.com/FilipeVDuarte/mobifans-capas-personalizadas.git
+cd mobifans-capas-personalizadas
 
-# Passo 2: Navegue até o diretório do projeto.
-cd <NOME_DO_SEU_PROJETO>
-
-# Passo 3: Instale as dependências necessárias.
-npm i
-
-# Passo 4: Inicie o servidor de desenvolvimento com recarregamento automático e uma visualização instantânea.
-npm run dev
-```
-
-**Editar um arquivo diretamente no GitHub**
-
-- Navegue até o(s) arquivo(s) desejado(s).
-- Clique no botão "Editar" (ícone de lápis) no canto superior direito da visualização do arquivo.
-- Faça suas alterações e commite as mudanças.
-
-**Usar o GitHub Codespaces**
-
-- Navegue até a página principal do seu repositório.
-- Clique no botão "Code" (botão verde) perto do canto superior direito.
-- Selecione a aba "Codespaces".
-- Clique em "New codespace" para iniciar um novo ambiente Codespace.
-- Edite os arquivos diretamente dentro do Codespace e commite e envie (push) suas alterações quando terminar.
-
-## Quais tecnologias são usadas neste projeto?
-
-Este projeto é construído com:
-
-Vite
-TypeScript
-React
-shadcn-ui
-Tailwind CSS
-
-## Como posso fazer o deploy deste projeto?
-
-Simplesmente abra o [Lovable](https://lovable.dev/projects/363473fc-a6c1-46e8-8316-157b1a396a3a) e clique em Share -> Publish.
-
-## Posso conectar um domínio personalizado ao meu projeto Lovable?
-
-Sim, você pode!
-
-Para conectar um domínio, navegue até Projeto > Configurações > Domínios e clique em Conectar Domínio.
-
-Leia mais aqui: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# Instale as dependências
+cd client && yarn install
+cd ../server && yarn install
