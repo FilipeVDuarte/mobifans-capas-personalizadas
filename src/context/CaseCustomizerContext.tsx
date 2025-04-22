@@ -62,7 +62,7 @@ export const CaseCustomizerProvider: React.FC<{ children: ReactNode }> = ({ chil
   const [isDraggingImage, setDraggingImage] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState<string | null>(null);
   const [customText, setCustomText] = useState<TextStyle | null>(null);
-  
+
   // Available fonts for text customization
   const availableFonts = [
     'Arial, sans-serif',
@@ -72,8 +72,8 @@ export const CaseCustomizerProvider: React.FC<{ children: ReactNode }> = ({ chil
     'Impact, Charcoal, sans-serif'
   ];
   
-  // Determine if we're in the checkout step (step 3)
-  const isCheckoutStep = currentStep === 3;
+  // Determine if we're in the checkout step (AGORA O DESIGN É O FINAL, ou seja, STEP=1)
+  const isCheckoutStep = currentStep === 1;
 
   const value = {
     currentStep,
@@ -113,3 +113,4 @@ export const useCaseCustomizer = () => {
   }
   return context;
 };
+

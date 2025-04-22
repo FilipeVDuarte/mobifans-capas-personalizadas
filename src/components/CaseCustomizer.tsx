@@ -5,9 +5,7 @@ import { CaseCustomizerProvider, useCaseCustomizer } from "../context/CaseCustom
 // Componentes das etapas do wizard de personalização
 import StepNavigation from "./StepNavigation";
 import ProductSelector from "./steps/ProductSelector";
-import PhotoUploader from "./steps/PhotoUploader";
 import DesignEditor from "./steps/DesignEditor";
-import Checkout from "./steps/Checkout";
 import PreviewPane from "./PreviewPane";
 import ControlPanel from "./ControlPanel";
 import Header from "./Header";
@@ -20,7 +18,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
  */
 const CaseCustomizerContent: React.FC = () => {
   // Obtém etapa atual e se está na etapa de checkout
-  const { currentStep, isCheckoutStep } = useCaseCustomizer();
+  const { currentStep } = useCaseCustomizer();
   // Detecta se está em um dispositivo móvel
   const isMobile = useIsMobile();
 
@@ -76,9 +74,7 @@ const CaseCustomizerContent: React.FC = () => {
           <ControlPanel isMobile={isMobile}>
             {/* Renderização condicional por etapa */}
             {currentStep === 0 && <ProductSelector />}
-            {currentStep === 1 && <PhotoUploader />}
-            {currentStep === 2 && <DesignEditor />}
-            {currentStep === 3 && <Checkout />}
+            {currentStep === 1 && <DesignEditor />}
           </ControlPanel>
         </aside>
       </main>

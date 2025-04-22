@@ -35,11 +35,16 @@ const DesignEditor = () => {
   const [selectedFont, setSelectedFont] = useState(customText?.font || availableFonts[0]);
   const [textColor, setTextColor] = useState(customText?.color || "#000000");
   const [textSize, setTextSize] = useState(customText?.size || 20);
-  const [textRotation, setTextRotation] = useState(customText ? customText.position?.rotation || 0 : 0);
+  const [textRotation, setTextRotation] = useState(customText?.position?.rotation || 0);
 
   // Draggable text logic
   const [dragText, setDragText] = useState(false);
-  const { textPosition, handleTextMouseDown } = useDraggableText(customText, setCustomText, setDragText, textRotation);
+  const { textPosition, handleTextMouseDown } = useDraggableText(
+    customText, 
+    setCustomText, 
+    setDragText, 
+    textRotation
+  );
 
   // Cores sólidas do arco-íris
   const solidColors = [
@@ -67,7 +72,9 @@ const DesignEditor = () => {
       color: textColor,
       size: textSize,
       position: { 
-        ...(customText?.position || { x: 20, y: 40 }),
+        ...(customText?.position
+          ? { ...customText.position }
+          : { x: 20, y: 40, rotation: textRotation }),
         rotation: textRotation 
       }
     });
@@ -90,7 +97,6 @@ const DesignEditor = () => {
 
   // Botão de salvar: baixa o preview como imagem
   const handleSaveDesign = () => {
-    // Gera imagem do preview usando canvas
     const previewElem = document.querySelector(".case-preview-downloadable");
     if (previewElem) {
       import("html2canvas").then((html2canvas) => {
@@ -105,43 +111,62 @@ const DesignEditor = () => {
     }
   };
 
+  // Mostrar opção cor sólida antes do upload ou quando não tem imagem
+  // Se com imagem: apenas botão de mudar para cor sólida
   return (
     <div className="space-y-6">
       <h2 className={`font-medium ${isMobile ? 'text-base' : 'text-lg'}`}>Monte sua capa personalizada</h2>
       
       {/* Escolha inicial: cor sólida vs imagem */}
       <div className="bg-gray-100 rounded-lg p-3 mb-2">
-        <Label className="block mb-2 text-sm font-medium">Escolha como personalizar sua capa:</Label>
-        <div className="flex gap-2">
-          <Button
-            variant={mode === "cor" ? "default" : "outline"}
-            size="sm"
-            onClick={() => {
-              setMode("cor");
-              setUploadedImage(null);
-            }}
-          >
-            <Palette className="mr-1 h-4 w-4" /> Cor sólida
-          </Button>
-          <Button
-            variant={mode === "imagem" ? "default" : "outline"}
-            size="sm"
-            onClick={() => {
-              setMode("imagem");
-              fileInputRef.current?.click();
-            }}
-          >
-            <Image className="mr-1 h-4 w-4" /> Upload de imagem
-          </Button>
-        </div>
-        {/* Input real de arquivo hidden, acionado pelo botão */}
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          accept="image/*"
-          className="hidden"
-        />
+        <Label className="block mb-2 text-sm font-medium">Como você prefere personalizar sua capa?</Label>
+        {(mode === "cor" || !uploadedImage) ? (
+          <div className="flex gap-2">
+            <Button
+              variant={mode === "cor" ? "default" : "outline"}
+              size="sm"
+              onClick={() => {
+                setMode("cor");
+                setUploadedImage(null);
+              }}
+            >
+              <Palette className="mr-1 h-4 w-4" /> Cor sólida
+            </Button>
+            <Button
+              variant={mode === "imagem" ? "default" : "outline"}
+              size="sm"
+              onClick={() => {
+                setMode("imagem");
+                fileInputRef.current?.click();
+              }}
+            >
+              <Image className="mr-1 h-4 w-4" /> Upload de imagem
+            </Button>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              accept="image/*"
+              className="hidden"
+            />
+          </div>
+        ) : (
+          <div className="flex gap-2 items-center justify-between">
+            <span className="text-xs text-gray-600">Fazendo upload de imagem</span>
+            <Button
+              size="sm"
+              variant="outline"
+              className="text-xs border-gray-300"
+              onClick={() => {
+                setMode("cor");
+                setUploadedImage(null);
+                setImagePosition({ x: 0, y: 0 });
+              }}
+            >
+              <ArrowLeftRight className="mr-1 h-3 w-3" /> Mudar para cor sólida
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Se cor sólida ativada */}
@@ -172,11 +197,16 @@ const DesignEditor = () => {
         <div className="space-y-5 p-3 bg-gray-50 rounded-lg">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-medium">Ajuste de Imagem</h3>
+            {/* Só mostra botão para trocar para cor sólida */}
             <Button
-              size="xs"
+              size="sm"
               variant="outline"
               className="text-xs border-gray-300"
-              onClick={() => setMode("cor")}
+              onClick={() => {
+                setMode("cor");
+                setUploadedImage(null);
+                setImagePosition({ x: 0, y: 0 });
+              }}
             >
               <ArrowLeftRight className="mr-1 h-3 w-3" /> Mudar para cor sólida
             </Button>
@@ -341,3 +371,4 @@ const DesignEditor = () => {
 };
 
 export default DesignEditor;
+

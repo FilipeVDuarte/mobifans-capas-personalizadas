@@ -2,7 +2,7 @@
 import React from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Smartphone, Image, PenTool, ShoppingCart } from "lucide-react";
+import { CheckCircle2, Smartphone, PenTool } from "lucide-react";
 
 const steps = [
   { 
@@ -11,19 +11,9 @@ const steps = [
     icon: Smartphone
   },
   { 
-    name: "Fotos", 
-    description: "Faça upload da imagem",
-    icon: Image
-  },
-  { 
     name: "Design", 
     description: "Personalize sua capa",
     icon: PenTool
-  },
-  { 
-    name: "Checkout", 
-    description: "Finalize seu pedido",
-    icon: ShoppingCart
   }
 ];
 
@@ -44,7 +34,6 @@ const StepNavigation: React.FC = () => {
             <div className="flex flex-col items-center">
               <button 
                 onClick={() => {
-                  // Only allow navigating to steps that are available
                   if (index <= currentStep) {
                     setCurrentStep(index)
                   }
@@ -89,3 +78,4 @@ const StepNavigation: React.FC = () => {
 };
 
 export default StepNavigation;
+

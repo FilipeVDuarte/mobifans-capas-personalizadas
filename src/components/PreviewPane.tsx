@@ -23,6 +23,7 @@ const PreviewPane: React.FC = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const startPosRef = useRef<{x: number, y: number}>({ x: 0, y: 0 });
+  const textStartPos = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   // Handle image dragging
   useEffect(() => {
@@ -86,14 +87,64 @@ const PreviewPane: React.FC = () => {
   }, [imagePosition, isDraggingImage, setDraggingImage, setImagePosition, uploadedImage]);
 
   // --- DRAGGABLE TEXT --- //
-  // Implementar arrasto/rotação do texto
-  const handleTextMouseDown = (e: any) => {
-    // Propagação para o custom hook do editor
-    if (!customText || !setCustomText) return;
-    // Implementado pelo hook de useDraggableText, editor cuida do resto
-    // Permite que só seja arrastável
-  };
-  // ---                  --- //
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    function handleTextStart(e: MouseEvent | TouchEvent) {
+      if (!customText || !setCustomText) return;
+
+      const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
+      const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+
+      textStartPos.current = {
+        x: clientX - (customText.position?.x || 0),
+        y: clientY - (customText.position?.y || 0)
+      };
+
+      function handleTextMove(ev: MouseEvent | TouchEvent) {
+        const moveX = "touches" in ev ? ev.touches[0].clientX : ev.clientX;
+        const moveY = "touches" in ev ? ev.touches[0].clientY : ev.clientY;
+
+        setCustomText({
+          ...customText,
+          position: {
+            ...(customText.position || { x: 0, y: 0, rotation: 0 }),
+            x: moveX - textStartPos.current.x,
+            y: moveY - textStartPos.current.y,
+            rotation: customText.position?.rotation || 0
+          }
+        });
+      }
+
+      function handleTextUp() {
+        window.removeEventListener('mousemove', handleTextMove);
+        window.removeEventListener('touchmove', handleTextMove);
+        window.removeEventListener('mouseup', handleTextUp);
+        window.removeEventListener('touchend', handleTextUp);
+      }
+
+      window.addEventListener('mousemove', handleTextMove);
+      window.addEventListener('touchmove', handleTextMove, { passive: false });
+      window.addEventListener('mouseup', handleTextUp);
+      window.addEventListener('touchend', handleTextUp);
+    }
+
+    const container = containerRef.current;
+    // Add a custom event on the TEXT DIV ONLY
+    if (container) {
+      const textElem = container.querySelector('[data-role="custom-draggable-text"]');
+      if (textElem) {
+        textElem.addEventListener('mousedown', handleTextStart);
+        textElem.addEventListener('touchstart', handleTextStart, { passive: false });
+      }
+      return () => {
+        if (textElem) {
+          textElem.removeEventListener('mousedown', handleTextStart);
+          textElem.removeEventListener('touchstart', handleTextStart);
+        }
+      };
+    }
+  }, [customText, setCustomText]);
 
   return (
     <div className={`relative bg-gray-50 rounded-lg shadow-sm flex items-center justify-center w-full transition-all duration-300
@@ -125,7 +176,7 @@ const PreviewPane: React.FC = () => {
               {uploadedImage && (
                 <img 
                   ref={imageRef}
-                  src={uploadedImage} 
+                  src={uploadedImage}
                   alt="Custom case"
                   className="absolute select-none" 
                   style={{
@@ -142,6 +193,7 @@ const PreviewPane: React.FC = () => {
               {!!customText?.content && (
                 <div 
                   className="absolute select-none"
+                  data-role="custom-draggable-text"
                   style={{
                     fontFamily: customText.font,
                     color: customText.color,
@@ -153,8 +205,6 @@ const PreviewPane: React.FC = () => {
                     touchAction: "none",
                     cursor: "move",
                   }}
-                  onMouseDown={handleTextMouseDown}
-                  onTouchStart={handleTextMouseDown}
                 >
                   {customText.content}
                 </div>
@@ -168,3 +218,4 @@ const PreviewPane: React.FC = () => {
 };
 
 export default PreviewPane;
+
