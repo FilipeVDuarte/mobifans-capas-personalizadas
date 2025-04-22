@@ -13,6 +13,15 @@ export interface PhoneModel {
   };
 }
 
+// Define text styling options
+export interface TextStyle {
+  content: string;
+  font: string;
+  color: string;
+  size: number;
+  position: { x: number; y: number };
+}
+
 // Define the context state interface
 interface CaseCustomizerState {
   currentStep: number;
@@ -21,6 +30,8 @@ interface CaseCustomizerState {
   imagePosition: { x: number; y: number };
   imageScale: number;
   imageRotation: number;
+  isDraggingImage: boolean;
+  setDraggingImage: (isDragging: boolean) => void;
   setCurrentStep: (step: number) => void;
   setSelectedModel: (model: PhoneModel | null) => void;
   setUploadedImage: (imageUrl: string | null) => void;
@@ -28,6 +39,13 @@ interface CaseCustomizerState {
   setImageScale: (scale: number) => void;
   setImageRotation: (rotation: number) => void;
   isCheckoutStep: boolean;
+  // New solid background color
+  backgroundColor: string | null;
+  setBackgroundColor: (color: string | null) => void;
+  // Text customization
+  customText: TextStyle | null;
+  setCustomText: (text: TextStyle | null) => void;
+  availableFonts: string[];
 }
 
 // Create the context with default values
@@ -41,6 +59,18 @@ export const CaseCustomizerProvider: React.FC<{ children: ReactNode }> = ({ chil
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [imageScale, setImageScale] = useState(1);
   const [imageRotation, setImageRotation] = useState(0);
+  const [isDraggingImage, setDraggingImage] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState<string | null>(null);
+  const [customText, setCustomText] = useState<TextStyle | null>(null);
+  
+  // Available fonts for text customization
+  const availableFonts = [
+    'Arial, sans-serif',
+    'Georgia, serif',
+    'Verdana, sans-serif',
+    'Courier New, monospace',
+    'Impact, Charcoal, sans-serif'
+  ];
   
   // Determine if we're in the checkout step (step 3)
   const isCheckoutStep = currentStep === 3;
@@ -52,13 +82,20 @@ export const CaseCustomizerProvider: React.FC<{ children: ReactNode }> = ({ chil
     imagePosition,
     imageScale,
     imageRotation,
+    isDraggingImage,
+    setDraggingImage,
     setCurrentStep,
     setSelectedModel,
     setUploadedImage,
     setImagePosition,
     setImageScale,
     setImageRotation,
-    isCheckoutStep
+    isCheckoutStep,
+    backgroundColor,
+    setBackgroundColor,
+    customText,
+    setCustomText,
+    availableFonts
   };
 
   return (
