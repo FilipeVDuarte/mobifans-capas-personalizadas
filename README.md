@@ -1,59 +1,78 @@
 # 🎨 Mobifans - Sistema de Capas Personalizadas
 
 [![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)]()
-[![Licença](https://img.shields.io/github/license/FilipeVDuarte/mobifans-capas-personalizadas)]()
+[![Licença](https://www.abcd.usp.br/wp-content/uploads/2019/06/CC-BY.jpg)]()
 [![Node.js](https://img.shields.io/badge/Node.js-14%2B-brightgreen)]()
 [![React](https://img.shields.io/badge/React-17%2B-blue)]()
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2575eba2-1b06-4db8-af73-a7d0db2eabaa/deploy-status)](https://app.netlify.com/sites/mobifans/deploys)
 
 Sistema completo para criação e personalização de capas para dispositivos móveis com visualização em tempo real.
 
-![Preview da Aplicação](https://mobifans.netlify.app/preview.jpg) <!-- Adicione um screenshot real -->
+🔗 **Acesso Online**: [https://mobifans.netlify.app](https://mobifans.netlify.app)
 
-### 🌐 Acesso Online
-A aplicação está disponível em:  
-🔗 [https://mobifans.netlify.app](https://mobifans.netlify.app)  
+![Editor de Capas Mobifans](https://github.com/FilipeVDuarte/mobifans-capas-personalizadas/blob/main/CapturadeTela.png)
 
-## ✨ Funcionalidades Principais
+## ✨ Funcionalidades
 
-- 🖌️ Editor intuitivo com ferramentas de desenho e camadas
-- 🎨 Paleta de cores personalizável e texturas pré-definidas
-- 📤 Upload de imagens com redimensionamento automático
+### 🎨 Editor Avançado
+- Ferramentas de desenho vetorial e raster
+- Camadas editáveis com opacidade e blending modes
+- Textos personalizáveis com diversas fontes
 
+### 📱 Visualização Realista
+- Modelos 3D de diversos dispositivos
+- Rotação 360° e zoom para pré-visualização
+- Efeitos de iluminação e materiais
 
-## 🚀 Tecnologias Utilizadas
+### 🔄 Integrações
+- Upload de imagens para o Cloudinary
+- Exportação em alta resolução (PNG/JPEG)
+- Salvar projetos na nuvem
+
+### 🛒 Fluxo Comercial
+- Adição direta ao carrinho
+- Histórico de designs
+- Compartilhamento nas redes sociais
+
+## 🛠 Tecnologias Principais
 
 ### Frontend
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
-![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge)
-![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge)
-![React Three Fiber](https://img.shields.io/badge/React_Three_Fiber-000000?style=for-the-badge)
+- React.js com Hooks
+- React Three Fiber (WebGL/3D)
+- Styled Components
+- Framer Motion (animações)
 
 ### Backend
-![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens)
-![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge)
+- Node.js com Express
+- MongoDB Atlas (banco de dados)
+- JWT (autenticação)
+- Cloudinary (armazenamento de imagens)
 
-### DevOps
-![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+### Infraestrutura
+- Hospedagem: Netlify (frontend)
+- API: Hospedada em [serviço de sua escolha]
+- CDN: Cloudinary
 
-## 🛠️ Configuração do Ambiente
+## 📊 Estrutura do Projeto
+mobifans/
+├── client/ # Aplicação React
+│ ├── public/ # Assets estáticos
+│ └── src/ # Código fonte
+│ ├── features # Funcionalidades
+│ ├── lib # Utilitários
+│ └── stores # Gerenciamento de estado
+├── server/ # API Node.js
+│ ├── config # Configurações
+│ ├── models # Modelos de dados
+│ └── routes # Endpoints API
+└── docs/ # Documentação
 
-### Pré-requisitos
-- Node.js v14+
-- MongoDB Atlas ou local
-- Conta no [Cloudinary](https://cloudinary.com/) para upload de imagens
-- Conta no [Netlify](https://www.netlify.com/) para deploy
+## ✉️ Contato
 
-```bash
-# Clone o repositório
-git clone https://github.com/FilipeVDuarte/mobifans-capas-personalizadas.git
-cd mobifans-capas-personalizadas
+**Filipe Duarte**  
+- Email: filipe.velascoduarte@gmail.com  
+- LinkedIn: [linkedin.com/in/filipe-velasco-duarte](https://www.linkedin.com/in/filipe-velasco-duarte/)  
 
-# Instale as dependências
-cd client && yarn install
-cd ../server && yarn install
+---
+
+© 2025 Mobifans - Todos os direitos reservados
