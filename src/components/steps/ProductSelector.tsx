@@ -1,15 +1,14 @@
+
 import React, { useState } from "react";
 import { useCaseCustomizer } from "../../context/CaseCustomizerContext";
 import { phoneBrands, phoneModelsByBrand } from "../../data/phoneModels";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { BrandIcon } from "../../data/brandIcons";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProductSelector: React.FC = () => {
   const { setSelectedModel, selectedModel, setCurrentStep } = useCaseCustomizer();
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-  const isMobile = useIsMobile();
 
   const handleSelectBrand = (brand: string) => {
     setSelectedBrand(brand);
@@ -30,45 +29,42 @@ const ProductSelector: React.FC = () => {
 
   return (
     <div className="flex flex-col h-full animate-fade-in">
-      <h2 className={`font-semibold mb-4 ${isMobile ? "text-base" : "text-lg"}`}>Selecione Seu Celular</h2>
+      <h2 className="text-lg font-semibold mb-6">Selecione Seu Celular</h2>
 
-      <div className="mb-4">
-        <h3 className={`font-medium mb-2 text-gray-700 ${isMobile ? "text-xs" : "text-sm"}`}>Marca</h3>
-        <div className="grid grid-cols-2 gap-2">
+      <div className="mb-6">
+        <h3 className="text-sm font-medium mb-3 text-gray-700">Marca</h3>
+        <div className="grid grid-cols-4 gap-4">
           {phoneBrands.map((brand) => (
             <button
               key={brand}
               onClick={() => handleSelectBrand(brand)}
-              className={`border rounded-md transition-all flex items-center justify-center gap-1 
-                ${isMobile ? "p-2 text-xs" : "p-3 text-sm"} 
+              className={`border rounded-lg transition-all p-4 flex items-center justify-center
                 ${selectedBrand === brand
-                  ? "border-primary bg-primary/10 text-primary"
+                  ? "border-primary bg-primary/10"
                   : "border-gray-200 hover:border-gray-300"
               }`}
             >
               <BrandIcon brand={brand} />
-              <span>{brand}</span>
             </button>
           ))}
         </div>
       </div>
 
       {selectedBrand && (
-        <div className="mb-4 animate-fade-in">
-          <h3 className={`font-medium mb-2 text-gray-700 ${isMobile ? "text-xs" : "text-sm"}`}>Modelo</h3>
-          <div className={`space-y-2 pr-2 overflow-y-auto ${isMobile ? "max-h-[120px]" : "max-h-[240px]"}`}>
+        <div className="flex-1 mb-6 animate-fade-in">
+          <h3 className="text-sm font-medium mb-3 text-gray-700">Modelo</h3>
+          <div className="grid grid-cols-2 gap-4 h-[calc(100%-2rem)] overflow-y-auto pr-2">
             {phoneModelsByBrand[selectedBrand].map((phone) => (
               <button
                 key={phone.id}
                 onClick={() => handleSelectModel(phone.id)}
-                className={`border rounded-md w-full text-left transition-all flex justify-between items-center 
-                  ${isMobile ? "p-2 text-xs" : "p-3 text-sm"}
+                className={`border rounded-lg p-4 text-left transition-all flex justify-between items-center
                   ${selectedModel?.id === phone.id
                     ? "border-primary bg-primary/10 text-primary"
                     : "border-gray-200 hover:border-gray-300"
                 }`}
               >
-                <span>{phone.model}</span>
+                <span className="text-sm">{phone.model}</span>
                 {selectedModel?.id === phone.id && (
                   <span className="text-primary">✓</span>
                 )}
@@ -83,7 +79,6 @@ const ProductSelector: React.FC = () => {
           onClick={handleContinue} 
           disabled={!selectedModel}
           className="w-full"
-          size={isMobile ? "sm" : "default"}
         >
           Continuar para Fotos
           <ChevronRight className="ml-1 h-4 w-4" />
