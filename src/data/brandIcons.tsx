@@ -1,6 +1,3 @@
-
-import { Smartphone } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { JSX } from 'react';
 
 // Componente de ícone de marca
@@ -29,7 +26,7 @@ export const BrandIcon = ({ brand }: { brand: string }): JSX.Element => {
   );
 };
 
-// Exportação legada
-export const brandIcons: Record<string, LucideIcon> = {
-  "default": Smartphone
+// Uma função simples para substituir a exportação legada
+export const getBrandIcon = (brand: string): JSX.Element => {
+  return <BrandIcon brand={brand} />;
 };
