@@ -1,6 +1,7 @@
+
 import { Smartphone } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { JSX } from 'react'; // Adicione esta linha
+import { JSX } from 'react';
 
 // Componente de ícone de marca
 export const BrandIcon = ({ brand }: { brand: string }): JSX.Element => {
