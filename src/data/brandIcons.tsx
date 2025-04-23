@@ -1,3 +1,4 @@
+
 import { JSX } from 'react';
 
 // Componente de ícone de marca

@@ -1,10 +1,9 @@
-
 import React, { useState } from "react";
 import { useCaseCustomizer } from "../../context/CaseCustomizerContext";
 import { phoneBrands, phoneModelsByBrand } from "../../data/phoneModels";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Smartphone } from "lucide-react";
-import { brandIcons } from "../../data/brandIcons";
+import { ChevronRight } from "lucide-react";
+import { BrandIcon } from "../../data/brandIcons";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProductSelector: React.FC = () => {
@@ -36,25 +35,21 @@ const ProductSelector: React.FC = () => {
       <div className="mb-4">
         <h3 className={`font-medium mb-2 text-gray-700 ${isMobile ? "text-xs" : "text-sm"}`}>Marca</h3>
         <div className="grid grid-cols-2 gap-2">
-          {phoneBrands.map((brand) => {
-            const BrandIcon = brandIcons[brand] || Smartphone;
-            
-            return (
-              <button
-                key={brand}
-                onClick={() => handleSelectBrand(brand)}
-                className={`border rounded-md transition-all flex items-center justify-center gap-1 
-                  ${isMobile ? "p-2 text-xs" : "p-3 text-sm"} 
-                  ${selectedBrand === brand
-                    ? "border-primary bg-primary/10 text-primary"
-                    : "border-gray-200 hover:border-gray-300"
-                }`}
-              >
-                <BrandIcon className={isMobile ? "h-4 w-4" : "h-5 w-5"} />
-                <span>{brand}</span>
-              </button>
-            );
-          })}
+          {phoneBrands.map((brand) => (
+            <button
+              key={brand}
+              onClick={() => handleSelectBrand(brand)}
+              className={`border rounded-md transition-all flex items-center justify-center gap-1 
+                ${isMobile ? "p-2 text-xs" : "p-3 text-sm"} 
+                ${selectedBrand === brand
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-gray-200 hover:border-gray-300"
+              }`}
+            >
+              <BrandIcon brand={brand} />
+              <span>{brand}</span>
+            </button>
+          ))}
         </div>
       </div>
 
