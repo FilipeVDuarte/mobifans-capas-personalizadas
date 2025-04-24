@@ -8,22 +8,35 @@ const steps = [
   { 
     name: "Produto", 
     description: "Selecione seu modelo",
-    icon: Smartphone
+    icon: Smartphone,
+    type: "brand"
   },
   { 
     name: "Design", 
     description: "Personalize sua capa",
-    icon: PenTool
+    icon: PenTool,
+    type: "design"
   },
   {
     name: "Exportar",
     description: "Como quer nos enviar?",
-    icon: Download
+    icon: Download,
+    type: "export"
   }
 ];
 
 const StepNavigation: React.FC = () => {
-  const { currentStep, setCurrentStep } = useCaseCustomizer();
+  const { currentStepType, goToStep, updateLastInteraction } = useCaseCustomizer();
+  
+  // Map step types to index
+  const currentStepIndex = steps.findIndex(step => step.type === currentStepType);
+  
+  // Calculate which steps have been completed
+  const isStepCompleted = (index: number) => {
+    if (currentStepType === 'export') return index < 2;
+    if (currentStepType === 'design') return index < 1;
+    return false;
+  };
 
   return (
     <div className="py-4 px-6 border-b overflow-x-auto">
@@ -39,21 +52,22 @@ const StepNavigation: React.FC = () => {
             <div className="flex flex-col items-center">
               <button 
                 onClick={() => {
-                  if (index <= currentStep) {
-                    setCurrentStep(index)
+                  updateLastInteraction();
+                  if (index <= currentStepIndex || isStepCompleted(index)) {
+                    goToStep(step.type as any);
                   }
                 }}
-                disabled={index > currentStep}
+                disabled={index > currentStepIndex && !isStepCompleted(index)}
                 className={cn(
                   "flex items-center justify-center w-10 h-10 rounded-full text-sm transition-colors duration-200",
-                  currentStep === index 
-                    ? "bg-primary text-primary-foreground" 
-                    : index < currentStep 
+                  currentStepType === step.type
+                    ? "bg-[#4161c3] text-white" 
+                    : isStepCompleted(index)
                       ? "bg-green-100 text-green-600" 
                       : "bg-gray-100 text-gray-400"
                 )}
               >
-                {index < currentStep ? (
+                {isStepCompleted(index) ? (
                   <CheckCircle2 className="w-5 h-5" />
                 ) : (
                   <step.icon className="w-5 h-5" />
@@ -62,9 +76,9 @@ const StepNavigation: React.FC = () => {
               
               <span className={cn(
                 "mt-2 text-sm font-medium whitespace-nowrap",
-                currentStep === index 
-                  ? "text-primary" 
-                  : index < currentStep 
+                currentStepType === step.type
+                  ? "text-[#4161c3]" 
+                  : isStepCompleted(index)
                     ? "text-gray-900" 
                     : "text-gray-500"
               )}>
@@ -83,4 +97,3 @@ const StepNavigation: React.FC = () => {
 };
 
 export default StepNavigation;
-

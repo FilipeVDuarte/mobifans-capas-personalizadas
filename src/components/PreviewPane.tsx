@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { PhonePlaceholder } from "./PlaceholderPhoneModels";
@@ -16,7 +17,8 @@ const PreviewPane: React.FC = () => {
     setDraggingImage,
     setImagePosition,
     customText,
-    setCustomText
+    setCustomText,
+    updateLastInteraction
   } = useCaseCustomizer();
   
   const isMobile = useIsMobile();
@@ -34,6 +36,7 @@ const PreviewPane: React.FC = () => {
       if ('button' in e && e.button !== 0) return;
 
       e.preventDefault();
+      updateLastInteraction();
 
       // Get start coordinates
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
@@ -49,6 +52,7 @@ const PreviewPane: React.FC = () => {
 
     const handleMouseMove = (e: MouseEvent | TouchEvent) => {
       if (!isDraggingImage) return;
+      updateLastInteraction();
 
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
@@ -60,6 +64,7 @@ const PreviewPane: React.FC = () => {
     };
 
     const handleMouseUp = () => {
+      updateLastInteraction();
       setDraggingImage(false);
     };
 
@@ -84,7 +89,7 @@ const PreviewPane: React.FC = () => {
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('touchend', handleMouseUp);
     };
-  }, [imagePosition, isDraggingImage, setDraggingImage, setImagePosition, uploadedImage]);
+  }, [imagePosition, isDraggingImage, setDraggingImage, setImagePosition, uploadedImage, updateLastInteraction]);
 
   // --- DRAGGABLE TEXT --- //
   useEffect(() => {
@@ -92,6 +97,7 @@ const PreviewPane: React.FC = () => {
 
     function handleTextStart(e: MouseEvent | TouchEvent) {
       if (!customText || !setCustomText) return;
+      updateLastInteraction();
 
       const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
       const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
@@ -102,6 +108,7 @@ const PreviewPane: React.FC = () => {
       };
 
       function handleTextMove(ev: MouseEvent | TouchEvent) {
+        updateLastInteraction();
         const moveX = "touches" in ev ? ev.touches[0].clientX : ev.clientX;
         const moveY = "touches" in ev ? ev.touches[0].clientY : ev.clientY;
 
@@ -117,6 +124,7 @@ const PreviewPane: React.FC = () => {
       }
 
       function handleTextUp() {
+        updateLastInteraction();
         window.removeEventListener('mousemove', handleTextMove);
         window.removeEventListener('touchmove', handleTextMove);
         window.removeEventListener('mouseup', handleTextUp);
@@ -144,7 +152,7 @@ const PreviewPane: React.FC = () => {
         }
       };
     }
-  }, [customText, setCustomText]);
+  }, [customText, setCustomText, updateLastInteraction]);
 
   return (
     <div className="w-full h-full flex items-center justify-center p-4">
