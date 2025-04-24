@@ -1,7 +1,6 @@
-
 import React from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
-import { phoneBrands } from "../data/phoneModels";
+import { phoneBrands, getBrandIconPath } from "../data/phoneModels";
 import { Button } from "@/components/ui/button";
 
 const BrandSelector: React.FC = () => {
@@ -24,8 +23,9 @@ const BrandSelector: React.FC = () => {
 
   const getBrandIcon = (brand: string) => {
     try {
+      // Usando a função auxiliar para obter o caminho correto
       return <img 
-        src={`/src/brand icons/Logo ${brand}.svg`}
+        src={getBrandIconPath(brand)}
         alt={`${brand} logo`} 
         className="w-16 h-16"
       />;
@@ -37,7 +37,7 @@ const BrandSelector: React.FC = () => {
   return (
     <div className="flex flex-col items-center max-w-4xl mx-auto px-4 pb-10">
       <img 
-        src="/src/data/mobifans logo.png" 
+        src="/data/mobifans logo.png" 
         alt="Mobifans Logo" 
         className="h-16 mb-8"
       />
