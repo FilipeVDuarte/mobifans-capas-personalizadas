@@ -1,43 +1,43 @@
 
 import React from "react";
-import { useCaseCustomizer } from "../context/CaseCustomizerContext";
-import { ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { useCaseCustomizer } from "@/context/CaseCustomizerContext";
 
 const Header: React.FC = () => {
-  const { selectedModel, currentStep } = useCaseCustomizer();
-  const basePrice = 24.99;
+  const navigate = useNavigate();
+  const { resetSession, updateLastInteraction } = useCaseCustomizer();
   
+  const handleReturn = () => {
+    updateLastInteraction();
+    resetSession();
+    navigate("/");
+  };
+
   return (
-    <div className="bg-white border-b border-gray-200 py-4">
-      <div className="container mx-auto flex items-center justify-between px-4">
-        <div className="flex items-center">
-          <div className="text-xl font-semibold text-primary">
-            Mobifans
-          </div>
-        </div>
-        
-        <div className="text-sm text-gray-500 hidden sm:block">
-          Crie sua capa personalizada
-        </div>
-        
-        <div className="flex items-center">
-          {selectedModel && (
-            <div className="mr-4 text-sm">
-              <span className="font-medium text-primary">R${basePrice}</span>
-              <span className="text-gray-500 ml-1">por capa</span>
-            </div>
-          )}
-          
-          {currentStep === 2 && (
-            <Button size="sm" variant="outline" className="flex items-center gap-2">
-              <ShoppingCart className="h-4 w-4" />
-              <span className="hidden sm:inline">Finalizar Compra</span>
-            </Button>
-          )}
-        </div>
+    <header className="h-[60px] border-b flex items-center px-4 shadow-sm sticky top-0 bg-white z-10">
+      <Button
+        variant="ghost"
+        onClick={handleReturn}
+        className="flex items-center text-[#4161c3] hover:text-[#3451a3] hover:bg-[#f1f5ff]"
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" />
+        Voltar
+      </Button>
+      
+      <div className="flex-1 flex justify-center">
+        <img
+          src="/public/lovable-uploads/f3f4583e-0e89-4610-ac74-4239c2a2295b.png" 
+          alt="Mobifans Logo"
+          className="h-8"
+        />
       </div>
-    </div>
+      
+      <div className="w-[70px]">
+        {/* Empty div for spacing */}
+      </div>
+    </header>
   );
 };
 
