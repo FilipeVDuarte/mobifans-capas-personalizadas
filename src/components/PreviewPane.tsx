@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { PhonePlaceholder } from "./PlaceholderPhoneModels";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const PreviewPane: React.FC = () => {
   const { 
