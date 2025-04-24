@@ -62,6 +62,7 @@ const ModelSelector: React.FC = () => {
         <span className="text-lg">Voltar</span>
       </button>
 
+
       <h1 className="text-5xl font-bold text-[#4161c3] mb-8 text-center">
         Escolha seu dispositivo
       </h1>
