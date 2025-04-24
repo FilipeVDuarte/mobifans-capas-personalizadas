@@ -27,10 +27,10 @@ const Header: React.FC = () => {
       </Button>
       
       <div className="flex-1 flex justify-center">
-        <img
-          src="/public/lovable-uploads/f3f4583e-0e89-4610-ac74-4239c2a2295b.png" 
-          alt="Mobifans Logo"
-          className="h-8"
+        <img 
+          src="/data/mobifans logo.png" 
+          alt="Mobifans Logo" 
+          className="h-16 mb-8"
         />
       </div>
       

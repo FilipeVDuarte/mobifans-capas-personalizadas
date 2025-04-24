@@ -36,12 +36,6 @@ const BrandSelector: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center max-w-4xl mx-auto px-4 pb-10">
-      <img 
-        src="/data/mobifans logo.png" 
-        alt="Mobifans Logo" 
-        className="h-16 mb-8"
-      />
-      
       <h1 className="text-5xl font-bold text-[#4161c3] my-8 text-center">
         Escolha seu dispositivo
       </h1>
