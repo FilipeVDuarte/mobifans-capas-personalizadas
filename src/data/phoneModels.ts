@@ -33,17 +33,13 @@ export const getBrandIconPath = (brand: string) => {
 
 // Função para obter o caminho do ícone do modelo
 export const getModelIconPath = (modelId: string) => {
-  // Converter o ID para o formato dos arquivos
-  // Ex: "iphone16pro" -> "Icon_iphone_16_Pro"
-  // Ex: "iphone16promax" -> "Icon_iphone_16_Pro_Max"
-  
-  // Primeiro substituímos padrões conhecidos
-  let formattedId = modelId.replace(/iphone(\d+)(pro)?(max)?/i, (_, num, pro, max) => {
-    let result = `Icon_iphone_${num}`;
-    if (pro) result += "_Pro";
-    if (max) result += "_Max";
-    return result;
-  });
-  
-  return `/icons models/${formattedId}.svg`;
+  const modelIconMap: Record<string, string> = {
+    iphone16: "Icon_iphone_16",
+    iphone16plus: "Icon_iphone_16_Plus",
+    iphone16pro: "Icon_iphone_16_Pro",
+    iphone16promax: "Icon_iphone_16_Pro_Max"
+  };
+
+  const fileName = modelIconMap[modelId] || `Icon_${modelId}`;
+  return `/icons models/${fileName}.svg`;
 };

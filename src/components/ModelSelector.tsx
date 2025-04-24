@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
-import { phoneModelsByBrand } from "../data/phoneModels";
+import { phoneModelsByBrand, getModelIconPath } from "../data/phoneModels";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
@@ -32,20 +32,14 @@ const ModelSelector: React.FC = () => {
     goToStep('custom-model');
   };
 
-  const getModelIcon = (modelId: string) => {
-    const model = phoneModelsByBrand[selectedBrand].find(m => m.id === modelId);
-    if (!model) return null;
-    
-    try {
-      return <img 
-        src={`/src/icons models/Icon_${modelId}.svg`}
-        alt={`${model.model} icon`}
-        className="w-16 h-16 mb-2"
-      />;
-    } catch {
-      return null;
-    }
-  };
+  const getModelIcon = (modelId: string, modelName: string) => (
+    <img 
+      src={getModelIconPath(modelId)}
+      alt={`${modelName} icon`}
+      className="w-16 h-16 mb-2"
+      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+    />
+  );
 
   const phoneModels = phoneModelsByBrand[selectedBrand] || [];
 
@@ -68,18 +62,19 @@ const ModelSelector: React.FC = () => {
       </h1>
       
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
-        {phoneModels.map((phone) => (
-          <button
-            key={phone.id}
-            onClick={() => handleSelectModel(phone.id)}
-            className="border rounded-lg p-4 text-center transition-all 
-              hover:border-[#4161c3] hover:bg-[#4161c3]/10 flex flex-col 
-              items-center justify-center aspect-square"
-          >
-            {getModelIcon(phone.id)}
-            <div className="font-medium mt-2">Capa {phone.model}</div>
-          </button>
-        ))}
+      {phoneModels.map((phone) => (
+        <button
+           key={phone.id}
+           onClick={() => handleSelectModel(phone.id)}
+          className="border rounded-lg p-4 text-center transition-all 
+             hover:border-[#4161c3] hover:bg-[#4161c3]/10 flex flex-col 
+             items-center justify-center aspect-square"
+             aria-label={`Selecionar modelo ${phone.model}`}
+       >
+           {getModelIcon(phone.id, phone.model)}
+          <div className="font-medium mt-2">Capa {phone.model}</div>
+           </button>
+      ))}
       </div>
 
       <Button
