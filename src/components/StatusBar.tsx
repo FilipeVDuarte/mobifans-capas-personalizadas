@@ -1,11 +1,9 @@
 
 import React from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
-import { ShoppingCart } from "lucide-react";
 
 const StatusBar: React.FC = () => {
   const { selectedModel, currentStep } = useCaseCustomizer();
-  const basePrice = 24.99;
 
   const getStatusText = () => {
     switch (currentStep) {
@@ -26,22 +24,6 @@ const StatusBar: React.FC = () => {
         <div className="text-sm text-gray-600">
           {getStatusText()}
         </div>
-        
-        {selectedModel && (
-          <div className="flex items-center">
-            <div className="text-sm font-medium">
-              <span className="text-gray-600">Preço: </span>
-              <span className="text-primary">R${basePrice.toFixed(2)}</span>
-            </div>
-            
-            {currentStep === 2 && (
-              <button className="ml-4 text-sm flex items-center text-primary hover:text-primary/80 transition-colors">
-                <ShoppingCart className="h-4 w-4 mr-1" />
-                <span>Adicionar ao Carrinho</span>
-              </button>
-            )}
-          </div>
-        )}
       </div>
     </div>
   );

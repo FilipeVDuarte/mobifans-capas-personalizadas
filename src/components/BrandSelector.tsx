@@ -3,7 +3,6 @@ import React from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { phoneBrands } from "../data/phoneModels";
 import { Button } from "@/components/ui/button";
-import { BrandIcon } from "../data/brandIcons";
 
 const BrandSelector: React.FC = () => {
   const { 
@@ -23,8 +22,26 @@ const BrandSelector: React.FC = () => {
     goToStep('custom-model');
   };
 
+  const getBrandIcon = (brand: string) => {
+    try {
+      return <img 
+        src={`/src/brand icons/Logo ${brand}.svg`}
+        alt={`${brand} logo`} 
+        className="w-16 h-16"
+      />;
+    } catch {
+      return null;
+    }
+  };
+
   return (
     <div className="flex flex-col items-center max-w-4xl mx-auto px-4 pb-10">
+      <img 
+        src="/src/data/mobifans logo.png" 
+        alt="Mobifans Logo" 
+        className="h-16 mb-8"
+      />
+      
       <h1 className="text-5xl font-bold text-[#4161c3] my-8 text-center">
         Escolha seu dispositivo
       </h1>
@@ -38,7 +55,7 @@ const BrandSelector: React.FC = () => {
                 hover:border-[#4161c3] hover:bg-[#4161c3]/10 w-full aspect-square"
             >
               <div className="w-20 h-20 flex items-center justify-center">
-                <BrandIcon brand={brand} />
+                {getBrandIcon(brand)}
               </div>
             </button>
             <span className="mt-3 text-lg font-medium">{brand}</span>

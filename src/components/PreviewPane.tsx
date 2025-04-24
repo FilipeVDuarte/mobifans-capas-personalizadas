@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { PhonePlaceholder } from "./PlaceholderPhoneModels";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -23,6 +23,7 @@ const PreviewPane: React.FC = () => {
     updateLastInteraction
   } = useCaseCustomizer();
   
+  const [selectedElement, setSelectedElement] = useState<'image' | 'text' | null>(null);
   const isMobile = useIsMobile();
   const imageRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,13 +34,12 @@ const PreviewPane: React.FC = () => {
     if (!containerRef.current) return;
 
     const handleMouseDown = (e: MouseEvent | TouchEvent) => {
-      // Only handle left mouse button or touch
+      if (selectedElement !== 'image' && selectedElement !== null) return;
       if ('button' in e && e.button !== 0) return;
 
       e.preventDefault();
       updateLastInteraction();
 
-      // Get start coordinates
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
 
@@ -69,11 +69,15 @@ const PreviewPane: React.FC = () => {
       setDraggingImage(false);
     };
 
-    // Add drag event listeners to the image container
+    const handleContainerClick = () => {
+      setSelectedElement(null);
+    };
+
     const imageContainer = containerRef.current;
     if (imageContainer && uploadedImage) {
       imageContainer.addEventListener('mousedown', handleMouseDown);
       imageContainer.addEventListener('touchstart', handleMouseDown, { passive: false });
+      imageContainer.addEventListener('click', handleContainerClick);
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('touchmove', handleMouseMove, { passive: false });
       window.addEventListener('mouseup', handleMouseUp);
@@ -84,13 +88,14 @@ const PreviewPane: React.FC = () => {
       if (imageContainer) {
         imageContainer.removeEventListener('mousedown', handleMouseDown);
         imageContainer.removeEventListener('touchstart', handleMouseDown);
+        imageContainer.removeEventListener('click', handleContainerClick);
       }
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('touchend', handleMouseUp);
     };
-  }, [imagePosition, isDraggingImage, setDraggingImage, setImagePosition, uploadedImage, updateLastInteraction]);
+  }, [imagePosition, isDraggingImage, setDraggingImage, setImagePosition, uploadedImage, selectedElement, updateLastInteraction]);
 
   return (
     <div className="w-full h-full flex items-center justify-center p-4">
@@ -111,7 +116,7 @@ const PreviewPane: React.FC = () => {
                 
                 <div 
                   ref={containerRef}
-                  className="absolute inset-0 overflow-hidden rounded-[32px] z-5 cursor-move"
+                  className="absolute inset-0 overflow-hidden rounded-[32px] z-5"
                   style={{
                     width: `${selectedModel.dimensions.width}px`,
                     height: `${selectedModel.dimensions.height}px`,
@@ -126,6 +131,8 @@ const PreviewPane: React.FC = () => {
                       imageScale={imageScale}
                       imageRotation={imageRotation}
                       isDraggingImage={isDraggingImage}
+                      isSelected={selectedElement === 'image'}
+                      onSelect={() => setSelectedElement('image')}
                       updateLastInteraction={updateLastInteraction}
                     />
                   )}
@@ -135,6 +142,8 @@ const PreviewPane: React.FC = () => {
                       customText={customText}
                       containerRef={containerRef}
                       setCustomText={setCustomText}
+                      isSelected={selectedElement === 'text'}
+                      onSelect={() => setSelectedElement('text')}
                       updateLastInteraction={updateLastInteraction}
                     />
                   )}

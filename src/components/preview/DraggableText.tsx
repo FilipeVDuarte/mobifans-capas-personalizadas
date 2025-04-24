@@ -6,6 +6,8 @@ interface DraggableTextProps {
   customText: TextStyle | null;
   containerRef: React.RefObject<HTMLDivElement>;
   setCustomText: (text: TextStyle | null) => void;
+  isSelected: boolean;
+  onSelect: () => void;
   updateLastInteraction: () => void;
 }
 
@@ -13,6 +15,8 @@ export const DraggableText: React.FC<DraggableTextProps> = ({
   customText,
   containerRef,
   setCustomText,
+  isSelected,
+  onSelect,
   updateLastInteraction
 }) => {
   if (!customText?.content) return null;
@@ -20,7 +24,9 @@ export const DraggableText: React.FC<DraggableTextProps> = ({
   const textStartPos = React.useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   function handleTextStart(e: React.MouseEvent | React.TouchEvent) {
+    e.stopPropagation();
     if (!customText || !setCustomText) return;
+    onSelect();
     updateLastInteraction();
 
     const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
@@ -63,7 +69,7 @@ export const DraggableText: React.FC<DraggableTextProps> = ({
 
   return (
     <div 
-      className="absolute select-none"
+      className={`absolute select-none ${isSelected ? 'ring-2 ring-blue-500' : ''}`}
       data-role="custom-draggable-text"
       style={{
         fontFamily: customText.font,
@@ -75,9 +81,14 @@ export const DraggableText: React.FC<DraggableTextProps> = ({
         whiteSpace: "pre",
         touchAction: "none",
         cursor: "move",
+        padding: "4px"
       }}
       onMouseDown={handleTextStart}
       onTouchStart={handleTextStart}
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelect();
+      }}
     >
       {customText.content}
     </div>

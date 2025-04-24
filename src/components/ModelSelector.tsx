@@ -3,7 +3,6 @@ import React from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { phoneModelsByBrand } from "../data/phoneModels";
 import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
 import { ArrowLeft } from "lucide-react";
 
 const ModelSelector: React.FC = () => {
@@ -33,6 +32,21 @@ const ModelSelector: React.FC = () => {
     goToStep('custom-model');
   };
 
+  const getModelIcon = (modelId: string) => {
+    const model = phoneModelsByBrand[selectedBrand].find(m => m.id === modelId);
+    if (!model) return null;
+    
+    try {
+      return <img 
+        src={`/src/icons models/Icon_${modelId}.svg`}
+        alt={`${model.model} icon`}
+        className="w-16 h-16 mb-2"
+      />;
+    } catch {
+      return null;
+    }
+  };
+
   const phoneModels = phoneModelsByBrand[selectedBrand] || [];
 
   return (
@@ -48,36 +62,29 @@ const ModelSelector: React.FC = () => {
         <span className="text-lg">Voltar</span>
       </button>
 
+      <img 
+        src="/src/data/mobifans logo.png" 
+        alt="Mobifans Logo" 
+        className="h-16 mb-8 self-center"
+      />
+
       <h1 className="text-5xl font-bold text-[#4161c3] mb-8 text-center">
         Escolha seu dispositivo
       </h1>
       
-      <div className="flex mb-10">
-        <div className="w-1/3 pr-8">
-          <div className="grid grid-flow-row gap-4">
-            <div className="w-24 h-24 flex items-center justify-center border rounded-lg mb-2">
-              <div className="w-16 h-16">
-                {selectedBrand && (
-                  <div className="font-bold text-center text-lg">{selectedBrand}</div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="w-2/3">
-          <div className="grid grid-cols-3 gap-4">
-            {phoneModels.map((phone) => (
-              <button
-                key={phone.id}
-                onClick={() => handleSelectModel(phone.id)}
-                className="border rounded-lg p-4 text-center transition-all hover:border-[#4161c3] hover:bg-[#4161c3]/10 aspect-square flex items-center justify-center"
-              >
-                <div className="font-medium">{phone.model}</div>
-              </button>
-            ))}
-          </div>
-        </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
+        {phoneModels.map((phone) => (
+          <button
+            key={phone.id}
+            onClick={() => handleSelectModel(phone.id)}
+            className="border rounded-lg p-4 text-center transition-all 
+              hover:border-[#4161c3] hover:bg-[#4161c3]/10 flex flex-col 
+              items-center justify-center aspect-square"
+          >
+            {getModelIcon(phone.id)}
+            <div className="font-medium mt-2">Capa {phone.model}</div>
+          </button>
+        ))}
       </div>
 
       <Button
