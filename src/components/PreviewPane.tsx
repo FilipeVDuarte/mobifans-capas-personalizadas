@@ -1,8 +1,7 @@
-
 import React, { useRef, useEffect } from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { PhonePlaceholder } from "./PlaceholderPhoneModels";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const PreviewPane: React.FC = () => {
   const { 
@@ -147,75 +146,74 @@ const PreviewPane: React.FC = () => {
   }, [customText, setCustomText]);
 
   return (
-    <div className={`relative bg-gray-50 rounded-lg shadow-sm flex items-center justify-center w-full transition-all duration-300
-      ${isMobile ? 'p-2 max-h-full' : 'p-6 max-w-md max-h-[600px]'}`}>
-      {!selectedModel ? (
-        <div className="text-center text-gray-500 animate-pulse p-4">
-          <p>{isMobile ? "Selecione um modelo" : "Selecione um modelo para visualizar sua capa personalizada"}</p>
-        </div>
-      ) : (
-        <div className="relative case-preview-downloadable">
-          {/* Phone outline using placeholder component */}
-          <div className="relative">
-            <PhonePlaceholder 
-              brand={selectedModel.brand}
-              width={selectedModel.dimensions.width}
-              height={selectedModel.dimensions.height}
-            />
-            
-            {/* Custom case with background color or uploaded image */}
-            <div 
-              ref={containerRef}
-              className="absolute inset-0 overflow-hidden rounded-[32px] z-5 cursor-move"
-              style={{
-                width: `${selectedModel.dimensions.width}px`,
-                height: `${selectedModel.dimensions.height}px`,
-                backgroundColor: backgroundColor || undefined
-              }}
-            >
-              {uploadedImage && (
-                <img 
-                  ref={imageRef}
-                  src={uploadedImage}
-                  alt="Custom case"
-                  className="absolute select-none" 
-                  style={{
-                    transform: `translate(${imagePosition.x}px, ${imagePosition.y}px) scale(${imageScale}) rotate(${imageRotation}deg)`,
-                    maxWidth: "none",
-                    transition: isDraggingImage ? "none" : "transform 0.2s ease-out",
-                    cursor: "move"
-                  }}
-                  draggable="false"
+    <div className="w-full h-full flex items-center justify-center p-4">
+      <AspectRatio ratio={3/4} className="w-full max-w-[600px]">
+        <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg shadow-sm">
+          {!selectedModel ? (
+            <div className="text-center text-gray-500 animate-pulse p-4">
+              <p>Selecione um modelo para visualizar sua capa personalizada</p>
+            </div>
+          ) : (
+            <div className="relative case-preview-downloadable transform-gpu">
+              <div className="relative">
+                <PhonePlaceholder 
+                  brand={selectedModel.brand}
+                  width={selectedModel.dimensions.width}
+                  height={selectedModel.dimensions.height}
                 />
-              )}
-
-              {/* Custom Text Overlay */}
-              {!!customText?.content && (
+                
                 <div 
-                  className="absolute select-none"
-                  data-role="custom-draggable-text"
+                  ref={containerRef}
+                  className="absolute inset-0 overflow-hidden rounded-[32px] z-5 cursor-move"
                   style={{
-                    fontFamily: customText.font,
-                    color: customText.color,
-                    fontSize: `${customText.size}px`,
-                    transform: `translate(${customText.position?.x || 0}px, ${customText.position?.y || 0}px) rotate(${customText.position?.rotation || 0}deg)`,
-                    textShadow: "0px 1px 2px rgba(0,0,0,0.2)",
-                    userSelect: "none",
-                    whiteSpace: "pre",
-                    touchAction: "none",
-                    cursor: "move",
+                    width: `${selectedModel.dimensions.width}px`,
+                    height: `${selectedModel.dimensions.height}px`,
+                    backgroundColor: backgroundColor || undefined
                   }}
                 >
-                  {customText.content}
+                  {uploadedImage && (
+                    <img 
+                      ref={imageRef}
+                      src={uploadedImage}
+                      alt="Custom case"
+                      className="absolute select-none" 
+                      style={{
+                        transform: `translate(${imagePosition.x}px, ${imagePosition.y}px) scale(${imageScale}) rotate(${imageRotation}deg)`,
+                        maxWidth: "none",
+                        transition: isDraggingImage ? "none" : "transform 0.2s ease-out",
+                        cursor: "move"
+                      }}
+                      draggable="false"
+                    />
+                  )}
+
+                  {!!customText?.content && (
+                    <div 
+                      className="absolute select-none"
+                      data-role="custom-draggable-text"
+                      style={{
+                        fontFamily: customText.font,
+                        color: customText.color,
+                        fontSize: `${customText.size}px`,
+                        transform: `translate(${customText.position?.x || 0}px, ${customText.position?.y || 0}px) rotate(${customText.position?.rotation || 0}deg)`,
+                        textShadow: "0px 1px 2px rgba(0,0,0,0.2)",
+                        userSelect: "none",
+                        whiteSpace: "pre",
+                        touchAction: "none",
+                        cursor: "move",
+                      }}
+                    >
+                      {customText.content}
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </AspectRatio>
     </div>
   );
 };
 
 export default PreviewPane;
-

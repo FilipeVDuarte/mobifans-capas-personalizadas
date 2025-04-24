@@ -38,13 +38,15 @@ const ProductSelector: React.FC = () => {
             <button
               key={brand}
               onClick={() => handleSelectBrand(brand)}
-              className={`border rounded-lg transition-all p-4 flex items-center justify-center
+              className={`border rounded-lg transition-all p-6 flex items-center justify-center
                 ${selectedBrand === brand
                   ? "border-primary bg-primary/10"
                   : "border-gray-200 hover:border-gray-300"
               }`}
             >
-              <BrandIcon brand={brand} />
+              <div className="w-12 h-12 flex items-center justify-center">
+                <BrandIcon brand={brand} />
+              </div>
             </button>
           ))}
         </div>

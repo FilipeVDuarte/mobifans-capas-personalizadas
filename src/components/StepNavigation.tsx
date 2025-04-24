@@ -2,11 +2,11 @@
 import React from "react";
 import { useCaseCustomizer } from "../context/CaseCustomizerContext";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Smartphone, PenTool } from "lucide-react";
+import { CheckCircle2, Smartphone, PenTool, Download } from "lucide-react";
 
 const steps = [
   { 
-    name: "Produtos", 
+    name: "Produto", 
     description: "Selecione seu modelo",
     icon: Smartphone
   },
@@ -14,6 +14,11 @@ const steps = [
     name: "Design", 
     description: "Personalize sua capa",
     icon: PenTool
+  },
+  {
+    name: "Exportar",
+    description: "Como quer nos enviar?",
+    icon: Download
   }
 ];
 
