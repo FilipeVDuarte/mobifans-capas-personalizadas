@@ -1,33 +1,25 @@
+// src/data/brandIcons.tsx
+import React from "react";
 
-import { JSX } from 'react';
-
-// Componente de ícone de marca
-export const BrandIcon = ({ brand }: { brand: string }): JSX.Element => {
-  const badgeUrls: Record<string, string> = {
-    "Apple": "https://img.shields.io/badge/Apple-%23000000.svg?style=for-the-badge&logo=apple&logoColor=white",
-    "Samsung": "https://img.shields.io/badge/Samsung-%231428A0.svg?style=for-the-badge&logo=samsung&logoColor=white",
-    "Motorola": "https://img.shields.io/badge/Motorola-%23E1140A.svg?style=for-the-badge&logo=motorola&logoColor=white",
-    "Xiaomi": "https://img.shields.io/badge/Xiaomi-%23FF6900.svg?style=for-the-badge&logo=xiaomi&logoColor=white",
-    "default": "https://img.shields.io/badge/Phone-%23000000.svg?style=for-the-badge"
-  };
-
-  return (
-    <img 
-      src={badgeUrls[brand] || badgeUrls.default} 
-      alt={`${brand} logo`}
-      className="brand-icon"
-      style={{ 
-        width: 'auto', 
-        height: '24px',
-        display: 'inline-block',
-        marginRight: '8px',
-        verticalAlign: 'middle'
-      }}
-    />
-  );
+const getLocalBrandIconPath = (brand: string) => {
+  const safeBrand = brand.toLowerCase();
+  return `/brand-icons/logo_${safeBrand}.svg`;
 };
 
-// Uma função simples para substituir a exportação legada
-export const getBrandIcon = (brand: string): JSX.Element => {
-  return <BrandIcon brand={brand} />;
-};
+export const BrandIcon = ({ brand }: { brand: string }) => (
+  <img
+    src={getLocalBrandIconPath(brand)}
+    alt={`${brand} logo`}
+    className="brand-icon"
+    style={{
+      width: '40px',
+      height: '40px',
+      objectFit: 'contain',
+      display: 'inline-block',
+      verticalAlign: 'middle'
+    }}
+    onError={(e) => {
+      (e.target as HTMLImageElement).style.display = 'none';
+    }}
+  />
+);
